@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const NAV_LINKS = [
   { label: 'Home',          path: '/',              icon: 'fas fa-home', cat: 'general'       },

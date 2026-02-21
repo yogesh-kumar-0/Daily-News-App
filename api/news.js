@@ -10,6 +10,7 @@ export default async function handler(req, res) {
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
+  res.setHeader('Content-Type', 'application/json');
 
   // Handle preflight
   if (req.method === 'OPTIONS') {
@@ -21,13 +22,18 @@ export default async function handler(req, res) {
     const { category, page, pageSize } = req.query;
     const apiKey = process.env.REACT_APP_NEWS_API;
 
-    if (!apiKey) {
-      return res.status(500).json({ error: 'API key not configured' });
+    if (!apiKey || apiKey === 'undefined') {
+      console.error('❌ API key not configured in Vercel environment');
+      return res.status(500).json({ 
+        status: 'error',
+        message: 'API key not configured. Set REACT_APP_NEWS_API in Vercel dashboard.',
+        articles: []
+      });
     }
 
     const url = `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
     
-    console.log('Fetching from:', url);
+    console.log('📡 Proxy fetching from NewsAPI...');
 
     const newsResponse = await fetch(url, {
       headers: {
@@ -35,18 +41,20 @@ export default async function handler(req, res) {
       },
     });
 
-    if (!newsResponse.ok) {
-      console.error('NewsAPI Error:', newsResponse.status, newsResponse.statusText);
-      throw new Error(`NewsAPI returned ${newsResponse.status}: ${newsResponse.statusText}`);
+    const data = await newsResponse.json();
+
+    if (!newsResponse.ok || data.status === 'error') {
+      console.error('❌ NewsAPI Error:', data.message);
+      return res.status(400).json(data);
     }
 
-    const data = await newsResponse.json();
     res.status(200).json(data);
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('❌ Proxy Error:', error.message);
     res.status(500).json({ 
-      error: error.message,
       status: 'error',
+      message: error.message,
+      articles: []
     });
   }
 }

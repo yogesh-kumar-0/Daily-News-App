@@ -66,9 +66,15 @@ export default class News extends Component {
     if (setProgress) setProgress(initial ? 8 : 55);
 
     try {
-      // Use our proxy API instead of calling NewsAPI directly (avoids CORS issues)
-      const url = `/api/news?category=${category}&page=${pageNum}&pageSize=${pagesize}`;
-      console.log('📡 Fetching from proxy:', url);
+      // Use proxy for production (Vercel), direct API for development
+      let url;
+      if (process.env.NODE_ENV === 'production') {
+        url = `/api/news?category=${category}&page=${pageNum}&pageSize=${pagesize}`;
+        console.log('📡 Fetching from Vercel proxy:', url);
+      } else {
+        url = `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apikey}&page=${pageNum}&pageSize=${pagesize}`;
+        console.log('📡 Fetching from NewsAPI (dev):', url);
+      }
       
       const res  = await fetch(url);
       const data = await res.json();
