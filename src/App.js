@@ -275,7 +275,6 @@ export default class App extends Component {
       setProgress:    this.setProgress,
       toggleBookmark: this.toggleBookmark,
       isBookmarked:   this.isBookmarked,
-      addToast:       this.addToast,
     };
 
     return (
@@ -290,7 +289,6 @@ export default class App extends Component {
             openSearch={this.openSearch}
             closeSearch={this.closeSearch}
             searchOpen={searchOpen}
-            addToast={this.addToast}
           />
 
           <Routes>

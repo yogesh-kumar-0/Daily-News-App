@@ -29,7 +29,6 @@ export default class News extends Component {
     setProgress:    PropTypes.func,
     toggleBookmark: PropTypes.func,
     isBookmarked:   PropTypes.func,
-    addToast:       PropTypes.func,
   };
 
   constructor(props) {
