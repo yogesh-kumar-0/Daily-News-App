@@ -52,6 +52,17 @@ export default class News extends Component {
 
   fetchNews = async (pageNum, initial = false) => {
     const { category, apikey, pagesize, setProgress } = this.props;
+    
+    // Validate API key
+    if (!apikey || apikey === 'undefined' || apikey === 'placeholder') {
+      this.setState({
+        error: '🔴 API Key Not Configured. Please set REACT_APP_NEWS_API in Vercel Environment Variables.',
+        loading: false,
+      });
+      console.error('❌ API key is missing or invalid:', apikey);
+      return;
+    }
+
     if (setProgress) setProgress(initial ? 8 : 55);
 
     try {

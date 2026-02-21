@@ -269,6 +269,13 @@ export default class App extends Component {
     const pageSize = 12;
     const { progress, theme, bookmarks, searchOpen, toasts } = this.state;
 
+    // Debug: Log API key status
+    if (!apikey || apikey === 'undefined') {
+      console.warn('⚠️ REACT_APP_NEWS_API is not set. News will not load. Check Vercel environment variables.');
+    } else {
+      console.log('✅ API Key is configured');
+    }
+
     const shared = {
       apikey,
       pagesize:       pageSize,
