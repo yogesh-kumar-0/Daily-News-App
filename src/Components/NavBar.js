@@ -184,7 +184,7 @@ class NavBarInner extends Component {
   closeMenu  = () => this.setState({ menuOpen: false });
 
   render() {
-    const { location, navigate, theme, toggleTheme, bookmarks, openSearch, searchOpen, closeSearch, addToast } = this.props;
+    const { location, navigate, theme, toggleTheme, bookmarks, openSearch, searchOpen, closeSearch } = this.props;
     const { menuOpen, scrolled } = this.state;
     const bmCount = bookmarks?.length || 0;
 

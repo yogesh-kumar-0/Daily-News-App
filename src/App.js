@@ -137,7 +137,7 @@ class SiteFooter extends Component {
 /* ── Bookmarks Page ──────────────────────────────────────── */
 class BookmarksPage extends Component {
   render() {
-    const { bookmarks, toggleBookmark, isBookmarked } = this.props;
+    const { bookmarks, toggleBookmark } = this.props;
     return (
       <>
         <style>{`

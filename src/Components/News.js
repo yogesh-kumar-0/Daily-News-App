@@ -98,7 +98,7 @@ export default class News extends Component {
   };
 
   render() {
-    const { category, toggleBookmark, isBookmarked, addToast } = this.props;
+    const { category, toggleBookmark, isBookmarked } = this.props;
     const { loading, error, totalResults, viewMode, sortBy } = this.state;
     const meta    = CAT_META[category] || CAT_META.general;
     const sorted  = this.getSorted();
