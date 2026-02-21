@@ -66,7 +66,10 @@ export default class News extends Component {
     if (setProgress) setProgress(initial ? 8 : 55);
 
     try {
-      const url = `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apikey}&page=${pageNum}&pageSize=${pagesize}`;
+      // Use our proxy API instead of calling NewsAPI directly (avoids CORS issues)
+      const url = `/api/news?category=${category}&page=${pageNum}&pageSize=${pagesize}`;
+      console.log('📡 Fetching from proxy:', url);
+      
       const res  = await fetch(url);
       const data = await res.json();
 
