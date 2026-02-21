@@ -17,7 +17,5 @@
       "dest": "/index.html"
     }
   ],
-  "env": {
-    "REACT_APP_API_KEY": "5ce0035518c14397bfbb8fcde18da02f"
-  }
+  
 }
